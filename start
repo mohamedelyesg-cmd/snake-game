@@ -1,0 +1,40 @@
+from turtle import Screen
+from snake import Snake
+import time
+from food import Food
+from score import Score
+game_on=True
+window=Screen()
+window.bgcolor("green")
+window.setup(700,700)
+window.tracer(0)
+sam=Snake()
+apple=Food()
+tom=Score()
+apple.change_place()
+window.listen()
+window.onkey(sam.up,"Up")
+window.onkey(sam.down,"Down")
+window.onkey(sam.left,"Left")
+window.onkey(sam.right,"Right")
+while game_on:
+    window.title(tom.score)
+    tom.writing()
+    sam.move()
+    if sam.head.xcor()>=325 or sam.head.xcor()<=-325 or sam.head.ycor()>=325 or sam.head.ycor()<=-325 :
+        game_on=False
+        tom.game_over()
+    if sam.head.distance(apple)<12:
+        apple.change_place()
+        sam.be_bigger()
+        tom.score+=1
+    for t in sam.turtles[:-1]:
+        if sam.head.distance(t)<10:
+            game_on=False
+            tom.game_over()
+            
+    
+    window.update()
+    time.sleep(0.1)
+    
+window.exitonclick()
