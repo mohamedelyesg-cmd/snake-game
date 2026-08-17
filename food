@@ -5,7 +5,6 @@ class Food(Turtle):
         super().__init__()
         self.shape("circle")
         self.color("red")
-        self.shapesize(0.5,0.5)
         self.penup()
     def change_place(self):
         self.goto(random.randint(-320,320),random.randint(-320,320))
