@@ -1,12 +1,13 @@
 from turtle import Screen
-from snake import Snake
 import time
 from food import Food
 from score import Score
+from snake import Snake
 game_on=True
 window=Screen()
 window.bgcolor("green")
 window.setup(700,700)
+window.title("Snake game")
 window.tracer(0)
 sam=Snake()
 apple=Food()
@@ -18,13 +19,14 @@ window.onkey(sam.down,"Down")
 window.onkey(sam.left,"Left")
 window.onkey(sam.right,"Right")
 while game_on:
-    window.title(tom.score)
+    window.update()
+    time.sleep(0.1)
     tom.writing()
     sam.move()
-    if sam.head.xcor()>=325 or sam.head.xcor()<=-325 or sam.head.ycor()>=325 or sam.head.ycor()<=-325 :
+    if sam.head.xcor()>=340.01 or sam.head.xcor()<=-340.01 or sam.head.ycor()>=340.01 or sam.head.ycor()<=-340.01 :
         game_on=False
         tom.game_over()
-    if sam.head.distance(apple)<12:
+    if apple.distance(sam.head)<=21:
         apple.change_place()
         sam.be_bigger()
         tom.score+=1
@@ -32,9 +34,6 @@ while game_on:
         if sam.head.distance(t)<10:
             game_on=False
             tom.game_over()
-            
-    
-    window.update()
-    time.sleep(0.1)
+
     
 window.exitonclick()
