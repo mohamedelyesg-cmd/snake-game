@@ -1,33 +1,36 @@
 from turtle import Turtle
 class Snake:
-    def __init__ (self):
-        self.turtles=[]
-        self.position=[(-40,0),(-20,0),(0,0)]
+    def __init__(self):
+        self.snakes=[]
+        self.position=((0,0),(-20,0),(-40,0))
         self.make_snake()
-        self.head=self.turtles[-1]
-        self.head.color("orange")
+        self.snakes[0].color("orange")
     def make_snake(self):
-        for x in self.position:
+        for p in self.position:
             turtle=Turtle("square")
             turtle.color("yellow")
             turtle.penup()
-            turtle.goto(x)
-            self.turtles.append(turtle)
+            turtle.goto(p)
+            self.snakes.append(turtle)
     def move(self):
-        for t in range(len(self.turtles)-1):
-            self.turtles[t].goto(self.turtles[t+1].pos())
-        self.head.forward(20)
+        for s in range(len(self.snakes)-1,0,-1):
+            self.snakes[s].goto(self.snakes[s-1].pos())
+        self.snakes[0].forward(20)
     def up(self):
-        self.head.setheading(90)
+        if self.snakes[0].heading()!=270:
+            self.snakes[0].setheading(90)
     def down(self):
-        self.head.setheading(270)
-    def left(self):
-        self.head.setheading(180)
+        if self.snakes[0].heading()!=90:
+            self.snakes[0].setheading(270)
     def right(self):
-        self.head.setheading(0)
-    def be_bigger(self):
-        new_turtle=Turtle("square")
-        new_turtle.color("yellow")
-        new_turtle.penup()
-        new_turtle.goto(self.turtles[0].pos())
-        self.turtles.insert(0,new_turtle)
+        if self.snakes[0].heading()!=180:
+            self.snakes[0].setheading(0)
+    def left(self):
+        if self.snakes[0].heading()!=0:
+            self.snakes[0].setheading(180)
+    def change(self):
+        turtle=Turtle("square")
+        turtle.color("yellow")
+        turtle.penup()
+        self.snakes.append(turtle)
+        turtle.goto(self.snakes[-1].xcor()-20,self.snakes[-1].ycor()-20)
