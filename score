@@ -1,28 +1,22 @@
 from turtle import Turtle
-class Score(Turtle):
-    def __init__ (self):
-        super().__init__()
+class Scor():
+    def __init__(self,position):
+        with open("score.txt") as file:
+            content=file.read()
+        self.best_score=int(content)
         self.score=0
-        self.best_score=self.get_bestscore()
-        self.hideturtle()
-        self.color("black")
-        self.penup()
-        self.goto(0,324)
-    def get_bestscore(self):
-        with open("best.txt") as my_file:
-            score_best=int(my_file.read())
-            return score_best
-    def writing(self):
-        self.clear()
-        self.write(f"Your score now: {self.score}                Best score: {self.best_score}",font=("arial",19,"normal"),align="center")
+        self.turtle=Turtle()
+        self.turtle.hideturtle()
+        self.turtle.penup()
+        self.turtle.color("black")
+        self.turtle.goto(position)
+    def display(self):
+        self.turtle.clear()
+        self.turtle.write(f"Score: {self.score}       Best Score: {self.best_score}",font=("arial",20,"normal"),align="center")
     def game_over(self):
-        self.clear()
-        if self.best_score<self.score:
-            self.best_score=self.score
-            with open("best.txt","w") as my_file:
-                my_file.write(str(self.best_score))
-        self.screen.bgcolor("dark red")
-        self.color("white")
-        self.goto(0,0)
-        self.write(f"----------Game over-----------\nYour Score: {self.score}\nBest score: {self.best_score}",font=("arial",25,"normal"),align="center")
-        
+        self.turtle.goto(0,0)
+        if self.score>self.best_score:
+            with open("score.txt","w") as file:
+                file.write(str(self.score))
+        self.turtle.screen.bgcolor("dark red")
+        self.turtle.write(f"You lost!\nScore: {self.score}\nBest Score: {self.best_score}",font=("arial",20,"normal"),align="center")
